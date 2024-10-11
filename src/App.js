@@ -1,11 +1,10 @@
+import Signup from "./pages/Signup";
 
 
 function App() {
   return (
     <div>
-    <h1 className="text-4xl text-center text-blue-900" >
-          Hello world!
-    </h1>
+    <Signup/>
     </div>
   );
 }
