@@ -1,10 +1,11 @@
 import React from 'react'
 import { fireEvent, render, screen } from '@testing-library/react'
 import Signup from './Signup'
-// import axios from 'axios'
+
+//import axios from 'axios'
 
 // // Mock axios to prevent actual network requests
-// jest.mock('axios')
+ //jest.mock('axios')
 
 
 describe("Signup Component", () => {
@@ -20,13 +21,13 @@ describe("Signup Component", () => {
     //test for  invalid input
     test('displays an error when email is invalid', () => {
         render(<Signup />)
-        const emailInput = screen.getByLabelText(/Email/i)
+        const emailInput = screen.getByLabelText("Email")
         
         fireEvent.change(emailInput, { target: { value: 'invalidemail' } })
         fireEvent.blur(emailInput)
-        fireEvent.click(screen.getByText(/Submit/i))
+        fireEvent.click(screen.getByText("Submit"))
         
-        expect(screen.getByText(/Invalid email address/i)).toBeInTheDocument()
+        expect(screen.getByText("Invalid email address.")).toBeInTheDocument()
     })
 
 

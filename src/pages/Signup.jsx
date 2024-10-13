@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { Input, Label } from '../UI/Input'
 import Button from '../UI/Button'
-//import axios from "axios"
-//const API_KEY = " AIzaSyDx8j0xIWbpWXGgSWOCqFCU4tGyOV8Or_Q"
+import axios from "axios"
+import { Link } from 'react-router-dom'
+const API_KEY = " AIzaSyDx8j0xIWbpWXGgSWOCqFCU4tGyOV8Or_Q"
 //const axios = require('axios');
 
 const Signup = () => {
@@ -61,18 +62,18 @@ const Signup = () => {
         try{
         if (isFormValidate()) {
             
-            // const response = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`,{
-            //     email,
-            //     password,
-            //     returnSecureToken:true,
-            // })
+            const response = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`,{
+                email,
+                password,
+                returnSecureToken:true,
+            })
             
             
-            // if(!response.ok) {
-            //     throw new Error("something went wrong!")
-            // }
+            if(!response.ok) {
+                throw new Error("something went wrong!")
+            }
 
-            //console.log(response.data)
+            console.log(response.data)
 
 
         } else {
@@ -94,7 +95,7 @@ const Signup = () => {
     <React.Fragment>
        <div className='bg-slate-950 p-10 w-screen h-screen flex justify-center flex-col items-center'>
        <h1 className='text-center text-2xl text-white mb-4 uppercase'>Sign Up</h1>
-        <form onSubmit={handleFormSubmit} className='bg-slate-900 w-98 h-full  pl-8 pr-8 pt-4 pb-4  rounded-lg'>
+        <form onSubmit={handleFormSubmit} className='bg-slate-900 w-98 h-auto  p-8 rounded-lg'>
         <div className='mb-1  h-24'>
             <Label
             htmlFor="email"
@@ -159,7 +160,7 @@ const Signup = () => {
             </form>
             <div>
                 
-                <p className='text-white mt-4'>Already Have Account ? Login </p>
+                <p className='text-white mt-4'>Already Have Account ? <Link to="/login">Login</Link></p>
             </div>
         </div>
     </React.Fragment>
