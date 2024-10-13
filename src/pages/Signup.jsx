@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import { Input, Label } from '../UI/Input'
 import Button from '../UI/Button'
-import axios from "axios"
-const API_KEY = " AIzaSyDx8j0xIWbpWXGgSWOCqFCU4tGyOV8Or_Q"
+//import axios from "axios"
+//const API_KEY = " AIzaSyDx8j0xIWbpWXGgSWOCqFCU4tGyOV8Or_Q"
+//const axios = require('axios');
 
 const Signup = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
     const [errors , setErrors] = useState({})
-    const [isValid, setIsValid] = useState(false)
+    //const [isValid, setIsValid] = useState(false)
 
     const validateEmail = () => {
         if (!email.includes("@")) {
@@ -33,7 +34,7 @@ const Signup = () => {
   
     const validateConfirmPassword = () => {
         if (confirmPassword !== password) {
-            setErrors((prevErrors) => ({ ...prevErrors, confirmPassword: "Passwords do not match or are too short." }))
+            setErrors((prevErrors) => ({ ...prevErrors, confirmPassword: "Passwords do not match" }))
             return false
         } else {
             setErrors((prevErrors) => ({ ...prevErrors, confirmPassword: null }))
@@ -47,10 +48,10 @@ const Signup = () => {
         const isConfirmPasswordValid = validateConfirmPassword()
 
         if (isEmailValid && isPasswordValid && isConfirmPasswordValid) {
-            setIsValid(true)
+            //setIsValid(true)
             return true
         } else {
-            setIsValid(false)
+            //setIsValid(false)
             return false
         }
     }
@@ -60,18 +61,18 @@ const Signup = () => {
         try{
         if (isFormValidate()) {
             
-            const response = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`,{
-                email,
-                password,
-                returnSecureToken:true,
-            })
+            // const response = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`,{
+            //     email,
+            //     password,
+            //     returnSecureToken:true,
+            // })
             
             
-            if(!response.ok) {
-                throw new Error("something went wrong!")
-            }
+            // if(!response.ok) {
+            //     throw new Error("something went wrong!")
+            // }
 
-            console.log(response.data)
+            //console.log(response.data)
 
 
         } else {
