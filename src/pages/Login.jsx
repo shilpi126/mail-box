@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import { Input, Label } from '../UI/Input'
 import Button from '../UI/Button'
-import axios from "axios"
-import { Link, useNavigate } from 'react-router-dom'
-const API_KEY = " AIzaSyDx8j0xIWbpWXGgSWOCqFCU4tGyOV8Or_Q"
+//import axios from "axios"
+//import { Link, useNavigate } from 'react-router-dom'
+//const API_KEY = " AIzaSyDx8j0xIWbpWXGgSWOCqFCU4tGyOV8Or_Q"
 
 
 const Login = () => {
-    const token = localStorage.getItem("token") || ""
+    //const token = localStorage.getItem("token") || ""
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const navigate = useNavigate()
+    //const navigate = useNavigate()
     const [errors , setErrors] = useState({})
     //const [isValid, setIsValid] = useState(false)
 
 
-    useEffect(()=>{
-        if(token){
-            navigate("/")
-        }
-    },[])
+    // useEffect(()=>{
+    //     if(token){
+    //         navigate("/")
+    //     }
+    // },[])
 
     const validateEmail = () => {
         if (!email.includes("@")) {
@@ -61,21 +61,21 @@ const Login = () => {
         try{
         if (isFormValidate()) {
             console.log(email,password)
-            const response = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`,{
-                email,
-                password,
-                returnSecureToken:true,
-            })
+            // const response = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`,{
+            //     email,
+            //     password,
+            //     returnSecureToken:true,
+            // })
             
-            console.log(response)
+            // console.log(response)
 
-            if(response) {
+            // if(response) {
                 
-                const data = response.data
+            //     const data = response.data
 
-                console.log(data.idToken)
-                localStorage.setItem("token",data.idToken)
-            }
+            //     console.log(data.idToken)
+            //     localStorage.setItem("token",data.idToken)
+            // }
 
 
         } else {
@@ -94,7 +94,7 @@ const Login = () => {
   return (
     <React.Fragment>
     <div className='bg-slate-950 p-10 w-screen h-screen flex justify-center flex-col items-center'>
-    <h1 className='text-center text-2xl text-white mb-4 uppercase'>Sign Up</h1>
+    <h1 className='text-center text-2xl text-white mb-4 uppercase'>Login</h1>
      <form onSubmit={handleFormSubmit} className='bg-slate-900 w-96 h-auto p-8 rounded-lg'>
      <div className='mb-1  h-24'>
          <Label
@@ -143,7 +143,9 @@ const Login = () => {
          </form>
          <div>
              
-             <p className='text-white mt-4'>Don't Have Account ? <Link to="/signup">Sign up</Link> </p>
+             <p className='text-white mt-4'>Don't Have Account ? 
+                {/* <Link to="/signup">Sign up</Link>  */}
+                </p>
          </div>
      </div>
  </React.Fragment>
