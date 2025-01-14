@@ -1,25 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import { Input, Label } from '../UI/Input'
 import Button from '../UI/Button'
-//import axios from "axios"
-//import { Link, useNavigate } from 'react-router-dom'
-//const API_KEY = " AIzaSyDx8j0xIWbpWXGgSWOCqFCU4tGyOV8Or_Q"
+import axios from "axios"
+import { Link, useNavigate } from 'react-router-dom'
+const API_KEY = " AIzaSyDx8j0xIWbpWXGgSWOCqFCU4tGyOV8Or_Q"
 
 
 const Login = () => {
-    //const token = localStorage.getItem("token") || ""
+    const token = localStorage.getItem("token") || ""
+console.log(token)
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    //const navigate = useNavigate()
+    const navigate = useNavigate()
     const [errors , setErrors] = useState({})
     //const [isValid, setIsValid] = useState(false)
 
 
-    // useEffect(()=>{
-    //     if(token){
-    //         navigate("/")
-    //     }
-    // },[])
+    useEffect(()=>{
+        if(token){
+            navigate("/")
+        }
+    },[])
 
     const validateEmail = () => {
         if (!email.includes("@")) {
@@ -30,7 +31,7 @@ const Login = () => {
             return true
         }
     }
-  
+    
     const validatePassword = () => {
         if (password.trim().length <= 6) {
             setErrors((prevErrors) => ({ ...prevErrors, password: "Password must be longer than 6 characters." }))
@@ -61,21 +62,22 @@ const Login = () => {
         try{
         if (isFormValidate()) {
             console.log(email,password)
-            // const response = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`,{
-            //     email,
-            //     password,
-            //     returnSecureToken:true,
-            // })
+            const response = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`,{
+                email,
+                password,
+                returnSecureToken:true,
+            })
             
-            // console.log(response)
+            console.log(response)
 
-            // if(response) {
+            if(response) {
                 
-            //     const data = response.data
+                const data = response.data
+                localStorage.setItem("userData",JSON.stringify(data))
+                //console.log(data.idToken)
+                localStorage.setItem("token",data.idToken)
 
-            //     console.log(data.idToken)
-            //     localStorage.setItem("token",data.idToken)
-            // }
+            }
 
 
         } else {
@@ -144,7 +146,7 @@ const Login = () => {
          <div>
              
              <p className='text-white mt-4'>Don't Have Account ? 
-                {/* <Link to="/signup">Sign up</Link>  */}
+                <Link to="/signup">Sign up</Link> 
                 </p>
          </div>
      </div>

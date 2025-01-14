@@ -11,8 +11,8 @@ function App() {
    <Route path="/" element={token? <MailBox/> : <Navigate to="/login"/>}/>
     <Route path="/signup" element={ <Signup/>}/> 
     <Route path="/login" element={<Login/>}/>
-   
-   </Routes>
+  
+  </Routes>
   
     </BrowserRouter>
   );
