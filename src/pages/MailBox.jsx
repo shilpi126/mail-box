@@ -6,6 +6,7 @@ import draftToHtml from 'draftjs-to-html';
 
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import {  EditorState } from 'draft-js';
+import { Navigate, useNavigate } from 'react-router';
 
 const api = require("../secret")
 
@@ -17,7 +18,7 @@ const MailBox = () => {
   const user = userEmail.slice(0, userEmail.indexOf("@"))
 
   const [editorState, setEditorState] = useState(EditorState.createEmpty())
-  
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     to:"",
     subject:"",
@@ -82,6 +83,11 @@ const MailBox = () => {
   }
 
 
+  const handleClick = () =>{
+   navigate("/")
+  }
+
+
   
   return (
     <div className='m-8 ml-20 mr-20 bg-white  h-screen flex justify-between'>
@@ -132,14 +138,16 @@ const MailBox = () => {
 
         </div>
         <div className='h-[10%] '>
-          <button type='submit' className='bg-blue-700 h-8 w-24 mt-2 text-white'>Send</button>
+          <button  type='submit' className='bg-blue-700 h-8 w-24 mt-2 text-white'>Send</button>
         </div>
         </form>
         
       
     </div>
 
-    <div className='mr-4'>x</div>
+<div className='mr-4 w-10 h-10 bg-slate-400'>
+<button onClick={handleClick}  className='h-[100%] w-[100%]'>x</button>
+</div>
 
     </div>
   )

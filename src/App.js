@@ -1,3 +1,5 @@
+
+import InboxMail from "./pages/InboxMail";
 import Login from "./pages/Login";
 import MailBox from "./pages/MailBox";
 import Signup from "./pages/Signup";
@@ -8,7 +10,8 @@ function App() {
   return (
     <BrowserRouter>
    <Routes>
-   <Route path="/" element={token? <MailBox/> : <Navigate to="/login"/>}/>
+   <Route path="/" element={token? <InboxMail/> : <Navigate to="/login"/>}/>
+   <Route path="/composemail" element={token? <MailBox/> : <Navigate to="/login"/>}/>
     <Route path="/signup" element={ <Signup/>}/> 
     <Route path="/login" element={<Login/>}/>
   
