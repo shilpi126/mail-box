@@ -1,13 +1,27 @@
+import axios from 'axios'
 import React from 'react'
 import { useNavigate } from 'react-router'
+import { Link } from 'react-router-dom'
+const api = require("../secret.js")
 
 
 const Sidebar = (props) => {
+  const userData = JSON.parse(localStorage.getItem("userData")) || ""
+  const userEmail = userData.email;
+  const user = userEmail.slice(0, userEmail.indexOf("@"))
   const navigate = useNavigate()
 
   const handleClick = () => {
     navigate("/composemail")
   }
+
+
+
+
+
+ 
+ 
+ 
 
 
   return (
@@ -26,7 +40,7 @@ const Sidebar = (props) => {
         <li>Unread</li>
         <li>Starred</li>
         <li>Drafts</li>
-        <li>Sent</li>
+        <li ><Link to="/sent">Sent</Link></li>
         <li>Delete Items</li>
       </ul>
         

@@ -38,17 +38,17 @@ const InboxMail = () => {
       //console.log(userMail[i])
       if(userMail[i].read === false){
         count++;
-        setCountUnread(count)
+        
       }
     }
-      
+    setCountUnread(count)
   }
   
   console.log(countUnread)
 
 
   useEffect(()=>{
-    countUnReadMsg()
+    //countUnReadMsg()
     getMail()
   },[])
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Editor } from "react-draft-wysiwyg";
 import { convertToRaw } from 'draft-js';
 import axios from "axios"
@@ -29,7 +29,7 @@ const dispatch = useDispatch()
     content:"",
   })
 
-
+  const senderEmail = formData.to.slice(0, formData.to.indexOf("@"))
 
   const handleChange = (e) => {
     const {id, value} = e.target;
@@ -82,12 +82,16 @@ const dispatch = useDispatch()
 
   const sendMail = async(mailData) =>{
     try{
-      const res = await axios.post(`${api}/${user}.json`,mailData)
+      const res = await axios.post(`${api}/${senderEmail}.json`,mailData)
       console.log(res);
     }catch(err){
       console.log(err.message)
     }
   }
+
+
+
+
 
 
   const handleClick = () =>{
