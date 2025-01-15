@@ -2,7 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router'
 
 
-const Sidebar = () => {
+const Sidebar = (props) => {
   const navigate = useNavigate()
 
   const handleClick = () => {
@@ -16,7 +16,13 @@ const Sidebar = () => {
         onClick={handleClick}
         >Compose</button>
       <ul className='text-white'>
-      <li >Inbox</li>
+      <li className='w-[100%]  h-8 mt-2 bg-slate-600 flex justify-between'>
+        <p>Inbox</p>
+        <div className='text-center mr-2'>
+          <p className='text-orange-500 text-xs'>{props.count}</p>
+          <p className='text-xs'>unread</p>
+        </div>
+      </li>
         <li>Unread</li>
         <li>Starred</li>
         <li>Drafts</li>

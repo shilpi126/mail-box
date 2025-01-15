@@ -3,10 +3,14 @@ import { Editor } from "react-draft-wysiwyg";
 import { convertToRaw } from 'draft-js';
 import axios from "axios"
 import draftToHtml from 'draftjs-to-html';
-
+ 
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import {  EditorState } from 'draft-js';
-import { Navigate, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
+import { mailAction } from '../slices/mailSlice';
+import {useDispatch} from  "react-redux"
+
+
 
 const api = require("../secret")
 
@@ -16,7 +20,7 @@ const MailBox = () => {
   const userData = JSON.parse(localStorage.getItem("userData")) || ""
   const userEmail = userData.email;
   const user = userEmail.slice(0, userEmail.indexOf("@"))
-
+const dispatch = useDispatch()
   const [editorState, setEditorState] = useState(EditorState.createEmpty())
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
@@ -65,12 +69,15 @@ const MailBox = () => {
       send:true,
       receive:false,
     }
-
+ 
     //console.log("--->",mailData)
-
+    
     sendMail(mailData);
 
+
   }
+
+
 
 
   const sendMail = async(mailData) =>{

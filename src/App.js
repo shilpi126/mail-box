@@ -1,4 +1,5 @@
 
+import MassageDetailsPage from "./components/MassageDetailsPage";
 import InboxMail from "./pages/InboxMail";
 import Login from "./pages/Login";
 import MailBox from "./pages/MailBox";
@@ -14,7 +15,7 @@ function App() {
    <Route path="/composemail" element={token? <MailBox/> : <Navigate to="/login"/>}/>
     <Route path="/signup" element={ <Signup/>}/> 
     <Route path="/login" element={<Login/>}/>
-  
+    <Route path="/msg/:id" element={<MassageDetailsPage/>}/>
   </Routes>
   
     </BrowserRouter>

@@ -3,7 +3,7 @@ import mailSlice from "./slices/mailSlice";
 
 const store = configureStore({
     reducer:{
-        sendmail:mailSlice.reducer,
+        mail:mailSlice.reducer,
     }
 })
 
