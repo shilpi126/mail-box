@@ -16,7 +16,8 @@ const InboxMail = () => {
   const userMail = useSelector((state) => state.mail.mailArr)
   console.log(userMail)
   const dispatch = useDispatch()
-  
+  let count =0;
+
   const getMail = async() => {
     try{
       const response = await axios.get(`${api}/${user}.json`)
@@ -30,24 +31,40 @@ const InboxMail = () => {
   }
 
 
-  const countUnReadMsg = ()=>{
-    let count =0;
 
+  const countUnReadMsg = () => {
+  
     for(let i=0; i<userMail.length; i++){
-      if(userMail.read === false){
+      //console.log(userMail[i])
+      if(userMail[i].read === false){
         count++;
+        setCountUnread(count)
       }
     }
-      setCountUnread(count)
+      
   }
   
-
+  console.log(countUnread)
 
 
   useEffect(()=>{
     countUnReadMsg()
     getMail()
   },[])
+
+
+  const handleDeleteMail =async (id) =>{
+    //console.log(id)
+    try{
+      const response = await axios.delete(`${api}/${user}/${id}.json`)
+      const data = await response.data;
+      console.log(data)
+      dispatch(mailAction.deleteMail(id))
+    }catch(err){
+      console.log(err)
+    }
+
+  }
 
   return (
     <div>
@@ -58,7 +75,8 @@ const InboxMail = () => {
         </div>
         <div className='w-[80%] m-4'>
       {userMail.map((mail,index) => (
-        <Link to={`/msg/${mail.key}`} key={index}>
+        <div key={index} className='flex justify-between'>
+        <Link to={`/msg/${mail.key}`} >
 
           <div   className='flex border-b-2 border-b-slate-200'>
           {/* <div className={`h-2 w-2  rounded text-center mt-2 mr-4  ${mail.read?"bg-orange-500":"bg-orange-500" }}`></div> */}
@@ -75,8 +93,13 @@ const InboxMail = () => {
           />
 
           <div className='w-[10%]'>{mail.time}</div>
+        
           </div>
           </Link>
+          <button  onClick={()=>{handleDeleteMail(mail.key)}} className='w-18 h-6 bg-orange-500 text-white'>delete</button>
+          
+          
+          </div>
       ))}
         </div>
       </div>

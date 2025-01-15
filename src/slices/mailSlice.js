@@ -31,7 +31,14 @@ const mailSlice = createSlice({
                 }
 
            //console.log(state.mailArr)
+        },
+
+        deleteMail(state,action){
+            const id = action.payload;
+            const afterRemove =state.mailArr.filter((item)=> item.key !== id)
+            state.mailArr=afterRemove
         }
+
     }
 });
 
