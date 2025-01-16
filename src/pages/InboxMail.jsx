@@ -6,6 +6,7 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import {useDispatch, useSelector} from "react-redux"
 import { mailAction } from '../slices/mailSlice.js'
+import useFetch from '../customHooks/useFetch.js'
 const api = require("../secret.js")
 
 const InboxMail = () => {
@@ -30,7 +31,10 @@ const InboxMail = () => {
     }
   }
 
+  //useFetch(api,user)
 
+
+  
 
   const countUnReadMsg = () => {
   
@@ -44,7 +48,7 @@ const InboxMail = () => {
     setCountUnread(count)
   }
   
-  console.log(countUnread)
+
 
   useEffect(()=>{
     //countUnReadMsg()
@@ -73,12 +77,13 @@ const InboxMail = () => {
   return (
     <div>
         <Header/>
+
       <div className='flex'>
       <div className='w-[20%]'>
         <Sidebar count={countUnread}/>
         </div>
         <div className='w-[80%] m-4'>
-      {userMail.map((mail,index) => (
+      {userMail && userMail.map((mail,index) => (
         <div key={index} className='flex justify-between'>
         <Link to={`/msg/${mail.key}`} >
 
@@ -107,6 +112,11 @@ const InboxMail = () => {
       ))}
         </div>
       </div>
+
+
+
+
+      
     </div>
   )
 }
