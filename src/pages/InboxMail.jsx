@@ -46,11 +46,15 @@ const InboxMail = () => {
   
   console.log(countUnread)
 
-
   useEffect(()=>{
     //countUnReadMsg()
     getMail()
   },[])
+
+
+  //setTimeout(()=>{
+    //getMail()
+  //},2000)
 
 
   const handleDeleteMail =async (id) =>{
