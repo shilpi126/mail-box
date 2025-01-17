@@ -1,49 +1,21 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { mailAction } from '../slices/mailSlice'
 import { useDispatch, useSelector } from 'react-redux'
-const api = require("../secret")
+import { deleteMailData, sentMailData } from '../slices/mail-action'
+
 
 const SentMailData = () => {
-    const userData = JSON.parse(localStorage.getItem("userData")) || ""
-    const userEmail = userData.email;
-    const user = userEmail.slice(0, userEmail.indexOf("@"))
-    const dispatch = useDispatch()
-    const sentMail = useSelector((state)=>state.mail.sentMsg)
-
-
     
-    const senderMail = async() => {
+    const dispatch = useDispatch()
+    const sentMail = useSelector((state)=>state.mail.mailArr)
 
-    try{
-      const response = await axios.get(`${api}/${user}.json`)
-      const data = await response.data;
-      console.log(data);
-      dispatch(mailAction.sentMail(data))
-
-    }catch(err){
-      console.log(err.message)
-    }
-  }
 
   useEffect(()=>{
-senderMail()
+  dispatch(sentMailData())
   },[])
 
 
-  const handleDeleteMail =async (id) =>{
-    //console.log(id)
-    try{
-      const response = await axios.delete(`${api}/${user}/${id}.json`)
-      const data = await response.data;
-      console.log(data)
-      //dispatch(mailAction.deleteMail(id))
-    }catch(err){
-      console.log(err)
-    }
 
-  }
   return (
     <div>
 
@@ -57,7 +29,7 @@ senderMail()
     <Link to={`/msg/${mail.key}`} >
 
       <div   className='flex border-b-2 border-b-slate-200'>
-      {/* <div className={`h-2 w-2  rounded text-center mt-2 mr-4  ${mail.read?"bg-orange-500":"bg-orange-500" }}`></div> */}
+      
 
     <div
     className={`h-2 w-2 rounded-full mt-2 mr-4 ${
@@ -65,7 +37,7 @@ senderMail()
     }`}
     ></div>
 
-      <div className='w-[20%]'>{mail.sender}</div>
+      <div className='w-[20%]'>{mail.reciver}</div>
       <div className='w-[70%]' 
       dangerouslySetInnerHTML={{__html:mail.content}}
       />
@@ -74,7 +46,7 @@ senderMail()
     
       </div>
       </Link>
-      <button  onClick={()=>{handleDeleteMail(mail.key)}} className='w-18 h-6 bg-orange-500 text-white'>delete</button>
+      <button  onClick={()=>{dispatch(deleteMailData(mail.key))}} className='w-18 h-6 bg-orange-500 text-white'>delete</button>
       
       
       </div>

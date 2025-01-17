@@ -6,14 +6,34 @@ const mailSlice = createSlice({
     initialState:{
         mailArr:[],
         sentMsg:[],
+        countUnReadMail:0,
+        notification:"",
+        
     },
     reducers:{
-        getMail (state, action) {
-            //console.log(action.payload)
-            const data = action.payload;
+        
+        showNotification(state,action){
             
+            state.notification={
+                title:action.payload.title,
+                status:action.payload.status,
+                message:action.payload.message,
+
+            }
+
+            
+        },
+        
+        
+        getMail (state, action) {
+            
+            const data = action.payload;
+            state.mailArr=[];  
+            state.countUnReadMail=0;
             for(const key in data){
-                                      
+              if(data[key].read === false){
+                  state.countUnReadMail++;
+              }                  
             state.mailArr.push(
                 {
                  key:key,
@@ -29,9 +49,11 @@ const mailSlice = createSlice({
                });
 
                 }
-
-           //console.log(state.mailArr)
+        
+            
         },
+
+    
 
         deleteMail(state,action){
             const id = action.payload;

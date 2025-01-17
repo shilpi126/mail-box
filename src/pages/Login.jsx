@@ -49,10 +49,10 @@ console.log(token)
         const isPasswordValid = validatePassword()
         
         if (isEmailValid && isPasswordValid) {
-            //setIsValid(true)
+            
             return true
         } else {
-            //setIsValid(false)
+            
             return false
         }
     }

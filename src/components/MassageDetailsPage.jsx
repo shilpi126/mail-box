@@ -1,36 +1,25 @@
-import axios from 'axios'
+
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { useNavigate, useParams } from 'react-router'
-const api = require("../secret")
+import { readMailData } from '../slices/mail-action'
+
 
 const MassageDetailsPage = () => {
-    const userData = JSON.parse(localStorage.getItem("userData")) || ""
-    const userEmail = userData.email;
-    const user = userEmail.slice(0, userEmail.indexOf("@"))
-    
+
+    const dispatch = useDispatch()
     const {id} = useParams()
     const mails = useSelector((state) => state.mail.mailArr)
     const navigate = useNavigate()
     const uniqueMail = mails.find((mail)=> mail.key === id)
-    console.log(uniqueMail)
+    //console.log(uniqueMail)
 
-    const readMail = async() => {
-        try{
-          const response = await axios.patch(`${api}/${user}/${id}.json`,{...uniqueMail,read:true})
-          const data = await response.data;
-          console.log(data)
-          
-          
-        }catch(err){
-          console.log(err.message)
-        }
-      }
+  
 
 
       useEffect(() => {
-        readMail()
+        dispatch(readMailData({uniqueMail,id}))
       },[])
 
 

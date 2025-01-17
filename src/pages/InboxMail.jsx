@@ -7,52 +7,25 @@ import { Link } from 'react-router-dom'
 import {useDispatch, useSelector} from "react-redux"
 import { mailAction } from '../slices/mailSlice.js'
 import useFetch from '../customHooks/useFetch.js'
+import { deleteMailData, fetchMailData } from '../slices/mail-action.js'
 const api = require("../secret.js")
 
 const InboxMail = () => {
-  const userData = JSON.parse(localStorage.getItem("userData")) || ""
-  const userEmail = userData.email;
-  const user = userEmail.slice(0, userEmail.indexOf("@"))
-  const [countUnread, setCountUnread] = useState(0)
   const userMail = useSelector((state) => state.mail.mailArr)
-  console.log(userMail)
   const dispatch = useDispatch()
-  let count =0;
+  
 
-  const getMail = async() => {
-    try{
-      const response = await axios.get(`${api}/${user}.json`)
-      const data = await response.data;
 
-      dispatch(mailAction.getMail(data))
-      
-    }catch(err){
-      console.log(err.message)
-    }
-  }
 
   //useFetch(api,user)
 
 
-  
 
-  const countUnReadMsg = () => {
-  
-    for(let i=0; i<userMail.length; i++){
-      //console.log(userMail[i])
-      if(userMail[i].read === false){
-        count++;
-        
-      }
-    }
-    setCountUnread(count)
-  }
   
 
 
   useEffect(()=>{
-    //countUnReadMsg()
-    getMail()
+  dispatch(fetchMailData())
   },[])
 
 
@@ -61,18 +34,7 @@ const InboxMail = () => {
   //},2000)
 
 
-  const handleDeleteMail =async (id) =>{
-    //console.log(id)
-    try{
-      const response = await axios.delete(`${api}/${user}/${id}.json`)
-      const data = await response.data;
-      console.log(data)
-      dispatch(mailAction.deleteMail(id))
-    }catch(err){
-      console.log(err)
-    }
-
-  }
+ 
 
   return (
     <div>
@@ -80,7 +42,7 @@ const InboxMail = () => {
 
       <div className='flex'>
       <div className='w-[20%]'>
-        <Sidebar count={countUnread}/>
+        <Sidebar/>
         </div>
         <div className='w-[80%] m-4'>
       {userMail && userMail.map((mail,index) => (
@@ -105,7 +67,7 @@ const InboxMail = () => {
         
           </div>
           </Link>
-          <button  onClick={()=>{handleDeleteMail(mail.key)}} className='w-18 h-6 bg-orange-500 text-white'>delete</button>
+          <button  onClick={()=>{dispatch(deleteMailData(mail.key))}} className='w-18 h-6 bg-orange-500 text-white'>delete</button>
           
           
           </div>
